@@ -1,8 +1,8 @@
 [submodule "src/tmc"]
-	path = src/tmc
+	path = Antenna/src/tmc
 	url = https://github.com/BinghamtonRover/TMC-Firmware
 [submodule "src/utils"]
-	path = src/utils
+	path = Antenna/src/utils
 	url = https://github.com/BinghamtonRover/Firmware-Utilities
 [submodule "Protobuf"]
 	path = Protobuf
