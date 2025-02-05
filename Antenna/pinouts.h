@@ -3,8 +3,8 @@
 #include "src/tmc/BURT_TMC.h"
 
 StepperMotorPins antennaPins = {
-	enable: 35,
-	chipSelect: 10,
+	enable: 10,
+	chipSelect: 5,
 };
 
 StepperMotorConfig antennaConfig = {
@@ -12,7 +12,7 @@ StepperMotorConfig antennaConfig = {
 	current: 2000,
 	speed: 200'000,
 	acceleration: 200'000,
-	stepsPerUnit: microstepsPerRadian * 47,
+	stepsPerUnit: microstepsPerRadian,
 };
 
 StepperMotor antenna(antennaPins, antennaConfig);

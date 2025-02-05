@@ -54,15 +54,15 @@ void sendData() {
 }
 
 void handleCommand(const uint8_t* buffer, int length) {
-    auto command = BurtProto::decode<MotorCommand>(buffer, length, MotorCommand_fields);
+    auto command = BurtProto::decode<AntennaFirmwareCommand>(buffer, length, AntennaFirmwareCommand_fields);
 
     // Debug: Move by Individual Steps
-    if (command.move_steps != 0) antenna.moveBySteps(command.move_steps);
+    if (command.swivel.move_steps != 0) antenna.moveBySteps(command.swivel.move_steps);
 
     // Precise Control: Move by # of Rad
-    if (command.move_radians != 0) antenna.moveBy(command.move_radians);
+    if (command.swivel.move_radians != 0) antenna.moveBy(command.swivel.move_radians);
 
     // IK Control: Move to Angle (Rad)
-    if (command.angle != 0) antenna.moveTo(command.angle);
+    if (command.swivel.angle != 0) antenna.moveTo(command.swivel.angle);
 }
 
