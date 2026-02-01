@@ -20,7 +20,17 @@ void setup() {
 
     Serial.println("Initializing hardware...");
     /*antenna.setup();*/
+    Serial.println("Preparing motors...");
+    swivel.presetup();
+    pitch.presetup();
+    
+    Serial.println("Initializing motors...");
+    swivel.presetup();
+    pitch.presetup();
 
+    Serial.println("Calibrating all motors...");
+    calibrateAllMotors();
+    
     Serial.println("MARS subsystem initialized");
 }
 
