@@ -36,6 +36,11 @@ void stopAllMotors() {
     pitch.stop();
 }
 
+void calibrateAllMotors() {
+    swivel.calibrate();
+    pitch.calibrate();
+}
+
 void handleCommand(const uint8_t* data, int length) {
     auto command = BurtProto::decode<AntennaCommand>(data, length, AntennaCommand_fields);
     /*antenna.handleCommand();*/
