@@ -23,7 +23,7 @@ void setup() {
     dataTimer.setup();
 
     Serial.println("Initializing hardware...");
-    /*antenna.setup();*/
+    
     Serial.println("Preparing motors...");
     swivel.preSetup();
     pitch.preSetup();
