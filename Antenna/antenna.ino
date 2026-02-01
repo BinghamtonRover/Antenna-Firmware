@@ -25,12 +25,12 @@ void setup() {
     Serial.println("Initializing hardware...");
     /*antenna.setup();*/
     Serial.println("Preparing motors...");
-    swivel.presetup();
-    pitch.presetup();
+    swivel.preSetup();
+    pitch.preSetup();
     
     Serial.println("Initializing motors...");
-    swivel.presetup();
-    pitch.presetup();
+    swivel.setup();
+    pitch.setup();
 
     Serial.println("Calibrating all motors...");
     calibrateAllMotors();
