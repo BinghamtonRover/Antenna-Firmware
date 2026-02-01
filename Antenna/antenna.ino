@@ -72,6 +72,7 @@ MotorData getMotorData(StepperMotor& motor) {
 //TODO: UPDATE HANDLECOMMAND TO MOVE MOTORS
 void handleCommand(const uint8_t* data, int length) {
     auto command = BurtProto::decode<AntennaCommand>(data, length, AntennaCommand_fields);
+
 }
 
 //TODO: UPDATE SENDDATA WITH PROTOBUF MESSAGE AND MOTOR DATA
@@ -81,7 +82,11 @@ void sendData() {
     data.version = version;
     data.has_version = true;
 
+    data.swivel = getMotorData(swivel);
+    data.has_swivel = true;
 
+    data.pitch = getMotorData(pitch);
+    data.has_pitch = true;
 
     serial.send(&data);
 }
