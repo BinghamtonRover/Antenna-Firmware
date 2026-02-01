@@ -57,6 +57,7 @@ void calibrateAllMotors() {
     pitch.calibrate();
 }
 
+// fix this for antenna
 MotorData getMotorData(StepperMotor& motor) {
   return {
     is_moving: motor.isMoving() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
@@ -80,7 +81,7 @@ void sendData() {
     data.version = version;
     data.has_version = true;
 
-    
+
 
     serial.send(&data);
 }
