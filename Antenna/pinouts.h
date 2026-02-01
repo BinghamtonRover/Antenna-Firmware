@@ -4,8 +4,8 @@
 #include "src/tmc/BURT_TMC.h"
 
 StepperMotorPins tmc1_pins = {
-	enable: ,
-	chipSelect: ,
+	enable: 1,  // pinouts unknown- placeholder 1
+	chipSelect: 1,  // pinouts unknown- placeholder 1
 };
 StepperMotorConfig tmc1_config = {
 	name: "swivel",
@@ -16,8 +16,8 @@ StepperMotorConfig tmc1_config = {
 };
 
 StepperMotorPins tmc2_pins = {
-	enable: ,
-	chipSelect: ,
+	enable: 1,  // pinouts unknown- placeholder 1
+	chipSelect: 1,  // pinouts unknown- placeholder 1
 };
 StepperMotorConfig tmc2_config = {
     name: "swivel",
