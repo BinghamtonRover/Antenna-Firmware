@@ -10,9 +10,9 @@ StepperGeneralConfig swivelGeneralConfig = {
 };
 
 StepperMotorPins swivelMotorPins = {
-  chip_select = 1,   // pinouts unknown- placeholder 1
-  step_pin = 1,      // pinouts unknown- placeholder 1
-  dir_pin = 1,       // pinouts unknown- placeholder 1
+  chip_select: 1,   // pinouts unknown- placeholder 1
+  step_pin: 1,      // pinouts unknown- placeholder 1
+  dir_pin: 1,       // pinouts unknown- placeholder 1
 };
 
 InternalRampConfig swivelInternalRampConfig = {
@@ -29,9 +29,9 @@ StepperGeneralConfig pitchGeneralConfig = {
 };
 
 StepperMotorPins pitchMotorPins = {
-    chip_select = 1,   // pinouts unknown- placeholder 1
-    step_pin = 1,      // pinouts unknown- placeholder 1
-    dir_pin = 1,       // pinouts unknown- placeholder 1
+    chip_select: 1,   // pinouts unknown- placeholder 1
+    step_pin: 1,      // pinouts unknown- placeholder 1
+    dir_pin: 1,       // pinouts unknown- placeholder 1
 };
 
 InternalRampConfig pitchInternalRampConfig = {

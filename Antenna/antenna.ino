@@ -1,5 +1,6 @@
 #include "src/utils/BURT_utils.h"
 #include "src/mars.pb.h"
+#include "pinouts.h"
 
 // TODO: Add AntennaCommand, AntennaData, and Device.ANTENNA to burt_network
 // TODO: Add BurtSerial to communicate with the Dashboard
@@ -7,6 +8,9 @@
 #define DATA_SEND_INTERVAL 250 // ms
 
 Version version = {major: 1, minor: 0};
+
+void handleCommand(const uint8_t* data, int length);
+void sendData();
 
 BurtSerial serial(Device::Device_ANTENNA, handleCommand, AntennaData_fields, AntennaData_size);
 BurtTimer dataTimer(DATA_SEND_INTERVAL, sendData);
