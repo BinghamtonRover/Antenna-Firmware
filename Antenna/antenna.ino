@@ -37,7 +37,9 @@ void setup() {
 void loop() {
     serial.update();
     dataTimer.update();
-    /*antenna.update();*/
+
+    swivel.update();
+    pitch.update();
 }
 
 
