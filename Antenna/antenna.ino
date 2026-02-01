@@ -57,7 +57,7 @@ void calibrateAllMotors() {
     pitch.calibrate();
 }
 
-// fix this for antenna
+// fix this for antenna- get the correct protobuf messages
 MotorData getMotorData(StepperMotor& motor) {
   return {
     is_moving: motor.isMoving() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
@@ -69,7 +69,6 @@ MotorData getMotorData(StepperMotor& motor) {
   };
 }
 
-//TODO: UPDATE HANDLECOMMAND TO MOVE MOTORS
 void handleCommand(const uint8_t* data, int length) {
     auto command = BurtProto::decode<AntennaCommand>(data, length, AntennaCommand_fields);
 
