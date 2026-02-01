@@ -1,34 +1,48 @@
 #ifndef PINOUTS_H
 #define PINOUTS_H
 
-#include "src/tmc/BURT_TMC.h"
+#include "src/tmc/BURT_TMC.h"   // using internal ramp mode on step-dir-mode branch, not main branch
 
-StepperMotorPins swivel_pins = {
-	enable: 1,  // pinouts unknown- placeholder 1
-	chipSelect: 1,  // pinouts unknown- placeholder 1
-};
-StepperMotorConfig swivel_config = {
-	name: "swivel",
-	current: 2000,
-	speed: 200'000,
-	acceleration: 200'000,
-	stepsPerUnit: microstepsPerRadian * 47,
+
+StepperGeneralConfig swivelGeneralConfig = {
+  name: "swivel",
+  steps_per_unit: microsteps_per_radian * 47,
 };
 
-StepperMotorPins pitch_pins = {
-	enable: 1,  // pinouts unknown- placeholder 1
-	chipSelect: 1,  // pinouts unknown- placeholder 1
+StepperMotorPins swivelMotorPins = {
+  chip_select = 1,   // pinouts unknown- placeholder 1
+  step_pin = 1,      // pinouts unknown- placeholder 1
+  dir_pin = 1,       // pinouts unknown- placeholder 1
 };
-StepperMotorConfig pitch_config = {
-    name: "swivel",
-	current: 2000,
-	speed: 200'000,
-	acceleration: 200'000,
-	stepsPerUnit: microstepsPerRadian * 47,
+
+InternalRampConfig swivelInternalRampConfig = {
+    current: 2000,
+    speed: 200'000,
+    acceleration: 200'000,
 };
 
 
-StepperMotor swivel(swivel_pins, swivel_config);
-StepperMotor swivel(pitch_pins, pitch_config);
+
+StepperGeneralConfig pitchGeneralConfig = {
+  name: "pitch",
+  steps_per_unit: microsteps_per_radian * 47,
+};
+
+StepperMotorPins pitchMotorPins = {
+    chip_select = 1,   // pinouts unknown- placeholder 1
+    step_pin = 1,      // pinouts unknown- placeholder 1
+    dir_pin = 1,       // pinouts unknown- placeholder 1
+};
+
+InternalRampConfig pitchInternalRampConfig = {
+    current: 2000,
+    speed: 200'000,
+    acceleration: 200'000,
+};
+
+
+
+StepperMotor swivel(swivelGeneralConfig, swivelMotorPins, swivelInternalRampConfig);
+StepperMotor pitch(pitchGeneralConfig, pitchMotorPins, pitchInternalRampConfig);
 
 #endif
