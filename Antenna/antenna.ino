@@ -30,6 +30,12 @@ void loop() {
     /*antenna.update();*/
 }
 
+
+void stopAllMotors() {
+    swivel.stop();
+    pitch.stop();
+}
+
 void handleCommand(const uint8_t* data, int length) {
     auto command = BurtProto::decode<AntennaCommand>(data, length, AntennaCommand_fields);
     /*antenna.handleCommand();*/

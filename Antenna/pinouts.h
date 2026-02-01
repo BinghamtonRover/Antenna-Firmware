@@ -28,8 +28,6 @@ StepperMotorConfig pitch_config = {
 };
 
 
-
-
 StepperMotor swivel(swivel_pins, swivel_config);
 StepperMotor swivel(pitch_pins, pitch_config);
 
