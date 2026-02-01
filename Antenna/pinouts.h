@@ -3,11 +3,11 @@
 
 #include "src/tmc/BURT_TMC.h"
 
-StepperMotorPins tmc1_pins = {
+StepperMotorPins swivel_pins = {
 	enable: 1,  // pinouts unknown- placeholder 1
 	chipSelect: 1,  // pinouts unknown- placeholder 1
 };
-StepperMotorConfig tmc1_config = {
+StepperMotorConfig swivel_config = {
 	name: "swivel",
 	current: 2000,
 	speed: 200'000,
@@ -15,11 +15,11 @@ StepperMotorConfig tmc1_config = {
 	stepsPerUnit: microstepsPerRadian * 47,
 };
 
-StepperMotorPins tmc2_pins = {
+StepperMotorPins pitch_pins = {
 	enable: 1,  // pinouts unknown- placeholder 1
 	chipSelect: 1,  // pinouts unknown- placeholder 1
 };
-StepperMotorConfig tmc2_config = {
+StepperMotorConfig pitch_config = {
     name: "swivel",
 	current: 2000,
 	speed: 200'000,
@@ -30,7 +30,7 @@ StepperMotorConfig tmc2_config = {
 
 
 
-StepperMotor swivel(swivelPins, swivelConfig);
-StepperMotor swivel(swivelPins, swivelConfig);
+StepperMotor swivel(swivel_pins, swivel_config);
+StepperMotor swivel(pitch_pins, pitch_config);
 
 #endif
