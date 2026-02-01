@@ -6,6 +6,8 @@
 
 #define DATA_SEND_INTERVAL 250 // ms
 
+Version version = {major: 1, minor: 1};
+
 BurtSerial serial(Device::Device_ANTENNA, handleCommand, AntennaData_fields, AntennaData_size);
 BurtTimer dataTimer(DATA_SEND_INTERVAL, sendData);
 
