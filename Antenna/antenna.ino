@@ -57,11 +57,30 @@ void calibrateAllMotors() {
     pitch.calibrate();
 }
 
-void handleCommand(const uint8_t* data, int length) {
-    auto command = BurtProto::decode<AntennaCommand>(data, length, AntennaCommand_fields);
-    /*antenna.handleCommand();*/
+MotorData getMotorData(StepperMotor& motor) {
+  return {
+    is_moving: motor.isMoving() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
+    is_limit_switch_pressed: motor.limitSwitch.isPressed() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
+    direction:  0,  // direction field in MotorData protobuf message isn't updated, so this is just set to 0
+    current_step: motor.currentSteps(),
+    target_step: motor.targetSteps(),
+    angle: (float)motor.currentPosition(),
+  };
 }
 
+//TODO: UPDATE HANDLECOMMAND TO MOVE MOTORS
+void handleCommand(const uint8_t* data, int length) {
+    auto command = BurtProto::decode<AntennaCommand>(data, length, AntennaCommand_fields);
+}
+
+//TODO: UPDATE SENDDATA WITH PROTOBUF MESSAGE AND MOTOR DATA
 void sendData() {
-    serial.send(/*&antenna.data*/)
+    AntennaData data = AntennaData_init_zero;
+
+    data.version = version;
+    data.has_version = true;
+
+    
+
+    serial.send(&data);
 }
