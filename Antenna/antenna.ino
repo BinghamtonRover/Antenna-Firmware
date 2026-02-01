@@ -73,9 +73,14 @@ MotorData getMotorData(StepperMotor& motor) {
 void handleCommand(const uint8_t* data, int length) {
     auto command = BurtProto::decode<AntennaCommand>(data, length, AntennaCommand_fields);
 
+    if (command.stop) stopAllMotors();
+    if (command.calibrate) calibrateAllMotors();
+
+    if (command.swivel.move_radians != 0) swivel.moveBy(command.swivel.move_radians);
+    if (command.pitch.move_radians != 0) pitch.moveBy(command.pitch.move_radians);
+
 }
 
-//TODO: UPDATE SENDDATA WITH PROTOBUF MESSAGE AND MOTOR DATA
 void sendData() {
     AntennaData data = AntennaData_init_zero;
 
