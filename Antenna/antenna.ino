@@ -12,7 +12,7 @@ Version version = {major: 1, minor: 0};
 void handleCommand(const uint8_t* data, int length);
 void sendData();
 
-BurtSerial serial(Device::Device_ANTENNA, handleCommand, AntennaData_fields, AntennaData_size);
+BurtSerial serial(Device::Device_ANTENNA, handleCommand, BaseStationData_fields, BaseStationData_size);
 BurtTimer dataTimer(DATA_SEND_INTERVAL, sendData);
 
 void setup() {
