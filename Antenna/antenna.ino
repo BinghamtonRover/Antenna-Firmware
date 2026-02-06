@@ -1,5 +1,5 @@
 #include "src/utils/BURT_utils.h"
-#include "src/mars.pb.h"
+#include "src/base_station.pb.h"
 #include "pinouts.h"
 
 // TODO: Add AntennaCommand, AntennaData, and Device.ANTENNA to burt_network
