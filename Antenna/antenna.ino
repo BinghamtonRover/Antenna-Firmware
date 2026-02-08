@@ -54,11 +54,11 @@ void calibrateAllMotors() {
     pitch.calibrate();
 }
 
-// fix this for antenna- get the correct protobuf messages
+// fix this for antenna- get the correct protobuf messages (currently matching old protobuf motordata message to make it work for now)
 MotorData getMotorData(StepperMotor& motor) {
   return {
     is_moving: motor.isMoving() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
-    is_limit_switch_pressed: motor.limitSwitch.isPressed() ? BoolState::BoolState_YES : BoolState::BoolState_NO,    // need to update since step-dir-mode removes limit switch
+    is_limit_switch_pressed: motor.limitSwitch.isPressed() ? BoolState::BoolState_YES : BoolState::BoolState_NO,    // need to update proto message since step-dir-mode removes limit switch
     direction:  0,  // direction field in MotorData protobuf message isn't updated, so this is just set to 0
     current_step: motor.currentSteps(),
     target_step: motor.targetSteps(),
