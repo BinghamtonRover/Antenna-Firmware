@@ -2,9 +2,6 @@
 #include "src/base_station.pb.h"
 #include "pinouts.h"
 
-// TODO: Add AntennaCommand, AntennaData, and Device.ANTENNA to burt_network
-// TODO: Add BurtSerial to communicate with the Dashboard
-
 #define DATA_SEND_INTERVAL 250 // ms
 
 Version version = {major: 1, minor: 0};
@@ -61,7 +58,7 @@ void calibrateAllMotors() {
 MotorData getMotorData(StepperMotor& motor) {
   return {
     is_moving: motor.isMoving() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
-    is_limit_switch_pressed: motor.limitSwitch.isPressed() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
+    is_limit_switch_pressed: motor.limitSwitch.isPressed() ? BoolState::BoolState_YES : BoolState::BoolState_NO,    // need to update since step-dir-mode removes limit switch
     direction:  0,  // direction field in MotorData protobuf message isn't updated, so this is just set to 0
     current_step: motor.currentSteps(),
     target_step: motor.targetSteps(),
