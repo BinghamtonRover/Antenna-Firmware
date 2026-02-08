@@ -33,6 +33,13 @@ void setup() {
     calibrateAllMotors();
     
     Serial.println("MARS subsystem initialized");
+
+    // temporary for HREI RevA board: step-dir-mode branch expects DRV_EN to be connected directly to ground, but the board connects it to a pin, so we drive it low
+    pinMode(35, OUTPUT);
+    pinMode(34,OUTPUT);
+    digitalWrite(35, LOW);
+    digitalWrite(34, LOW);
+
 }
 
 void loop() {
