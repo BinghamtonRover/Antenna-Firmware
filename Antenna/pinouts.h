@@ -10,7 +10,7 @@ StepperGeneralConfig swivelGeneralConfig = {
 };
 
 StepperMotorPins swivelMotorPins = {
-  chip_select: 10,   // for HREI RevA board
+  chip_select: 10,   // for HREI RevA board- STEP_1
 };
 
 InternalRampConfig swivelInternalRampConfig = {
@@ -27,7 +27,7 @@ StepperGeneralConfig pitchGeneralConfig = {
 };
 
 StepperMotorPins pitchMotorPins = {
-    chip_select: 37,   // for HREI RevA board
+    chip_select: 37,   // for HREI RevA board- STEP_2
 };
 
 InternalRampConfig pitchInternalRampConfig = {
