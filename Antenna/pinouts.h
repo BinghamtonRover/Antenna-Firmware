@@ -6,7 +6,7 @@
 
 StepperGeneralConfig swivelGeneralConfig = {
   name: "swivel",
-  steps_per_unit: microsteps_per_radian * 47,
+  steps_per_unit: microsteps_per_rad * 47,
 };
 
 StepperMotorPins swivelMotorPins = {
@@ -23,7 +23,7 @@ InternalRampConfig swivelInternalRampConfig = {
 
 StepperGeneralConfig pitchGeneralConfig = {
   name: "pitch",
-  steps_per_unit: microsteps_per_radian * 47,
+  steps_per_unit: microsteps_per_rad * 47,
 };
 
 StepperMotorPins pitchMotorPins = {
