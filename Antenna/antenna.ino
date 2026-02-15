@@ -66,7 +66,7 @@ MotorData getMotorData(StepperMotor& motor) {
   return {
     is_moving: motor.isMoving() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
     is_limit_switch_pressed: BoolState::BoolState_NO,    // need to update proto message since step-dir-mode removes limit switch
-    direction:  0,  // direction field in MotorData protobuf message isn't updated, so this is just set to 0
+    direction: MotorDirection::MotorDirection_MOTOR_DIRECTION_UNDEFINED,  // direction field in MotorData protobuf message isn't updated, so this is just set to 0
     current_step: motor.currentSteps(),
     target_step: motor.targetSteps(),
     current_angle: (float)motor.currentPosition(),
