@@ -31,6 +31,8 @@ typedef struct _AntennaFirmwareCommand {
     MotorCommand swivel;
     bool stop;
     bool calibrate;
+    bool has_pitch;
+    MotorCommand pitch;
 } AntennaFirmwareCommand;
 
 typedef struct _AntennaFirmwareData {
@@ -103,11 +105,11 @@ extern "C" {
 
 
 /* Initializer values for message structs */
-#define AntennaFirmwareCommand_init_default      {false, Version_init_default, false, MotorCommand_init_default, 0, 0}
+#define AntennaFirmwareCommand_init_default      {false, Version_init_default, false, MotorCommand_init_default, 0, 0, false, MotorCommand_init_default}
 #define AntennaFirmwareData_init_default         {false, Version_init_default, false, MotorData_init_default, false, MotorData_init_default}
 #define BaseStationCommand_init_default          {false, Version_init_default, _AntennaControlMode_MIN, false, GpsCoordinates_init_default, false, GpsCoordinates_init_default, false, GpsCoordinates_init_default, false, AntennaFirmwareCommand_init_default, 0}
 #define BaseStationData_init_default             {false, Version_init_default, _AntennaControlMode_MIN, false, AntennaFirmwareData_init_default, false, GpsCoordinates_init_default, _BoolState_MIN}
-#define AntennaFirmwareCommand_init_zero         {false, Version_init_zero, false, MotorCommand_init_zero, 0, 0}
+#define AntennaFirmwareCommand_init_zero         {false, Version_init_zero, false, MotorCommand_init_zero, 0, 0, false, MotorCommand_init_zero}
 #define AntennaFirmwareData_init_zero            {false, Version_init_zero, false, MotorData_init_zero, false, MotorData_init_zero}
 #define BaseStationCommand_init_zero             {false, Version_init_zero, _AntennaControlMode_MIN, false, GpsCoordinates_init_zero, false, GpsCoordinates_init_zero, false, GpsCoordinates_init_zero, false, AntennaFirmwareCommand_init_zero, 0}
 #define BaseStationData_init_zero                {false, Version_init_zero, _AntennaControlMode_MIN, false, AntennaFirmwareData_init_zero, false, GpsCoordinates_init_zero, _BoolState_MIN}
@@ -117,6 +119,7 @@ extern "C" {
 #define AntennaFirmwareCommand_swivel_tag        2
 #define AntennaFirmwareCommand_stop_tag          3
 #define AntennaFirmwareCommand_calibrate_tag     4
+#define AntennaFirmwareCommand_pitch_tag         5
 #define AntennaFirmwareData_version_tag          1
 #define AntennaFirmwareData_swivel_tag           2
 #define AntennaFirmwareData_pitch_tag            3
@@ -138,11 +141,13 @@ extern "C" {
 X(a, STATIC,   OPTIONAL, MESSAGE,  version,           1) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  swivel,            2) \
 X(a, STATIC,   SINGULAR, BOOL,     stop,              3) \
-X(a, STATIC,   SINGULAR, BOOL,     calibrate,         4)
+X(a, STATIC,   SINGULAR, BOOL,     calibrate,         4) \
+X(a, STATIC,   OPTIONAL, MESSAGE,  pitch,             5)
 #define AntennaFirmwareCommand_CALLBACK NULL
 #define AntennaFirmwareCommand_DEFAULT NULL
 #define AntennaFirmwareCommand_version_MSGTYPE Version
 #define AntennaFirmwareCommand_swivel_MSGTYPE MotorCommand
+#define AntennaFirmwareCommand_pitch_MSGTYPE MotorCommand
 
 #define AntennaFirmwareData_FIELDLIST(X, a) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  version,           1) \
@@ -194,10 +199,10 @@ extern const pb_msgdesc_t BaseStationData_msg;
 #define BaseStationData_fields &BaseStationData_msg
 
 /* Maximum encoded size of messages (where known) */
-#define AntennaFirmwareCommand_size              51
+#define AntennaFirmwareCommand_size              74
 #define AntennaFirmwareData_size                 104
 #define BASE_STATION_PB_H_MAX_SIZE               BaseStationCommand_size
-#define BaseStationCommand_size                  177
+#define BaseStationCommand_size                  200
 #define BaseStationData_size                     165
 
 #ifdef __cplusplus
