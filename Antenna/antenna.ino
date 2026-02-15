@@ -13,6 +13,7 @@ BurtSerial serial(Device::Device_ANTENNA, handleCommand, BaseStationData_fields,
 BurtTimer dataTimer(DATA_SEND_INTERVAL, sendData);
 
 void setup() {
+    delay(1000);
     Serial.begin(9600);
     Serial.println("Initializing MARS subsystem");
     Serial.println("Initializing software...");
