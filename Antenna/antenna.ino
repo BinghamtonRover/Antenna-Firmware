@@ -86,7 +86,7 @@ void handleCommand(const uint8_t* data, int length) {
 }
 
 void sendData() {
-    AntennaData data = AntennaData_init_zero;
+    AntennaFirmwareData data = AntennaFirmwareData_init_zero;
 
     data.version = version;
     data.has_version = true;
