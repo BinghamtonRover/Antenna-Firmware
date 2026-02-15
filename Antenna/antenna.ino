@@ -75,7 +75,7 @@ MotorData getMotorData(StepperMotor& motor) {
 }
 
 void handleCommand(const uint8_t* data, int length) {
-    auto command = BurtProto::decode<AntennaCommand>(data, length, AntennaCommand_fields);
+    auto command = BurtProto::decode<AntennaFirmwareCommand>(data, length, AntennaFirmwareCommand_fields);
 
     if (command.stop) stopAllMotors();
     if (command.calibrate) calibrateAllMotors();
