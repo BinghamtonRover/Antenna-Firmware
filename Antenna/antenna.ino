@@ -51,7 +51,6 @@ void loop() {
     pitch.update();
 }
 
-
 void stopAllMotors() {
     swivel.stop();
     pitch.stop();
