@@ -66,7 +66,7 @@ MotorData getMotorData(StepperMotor& motor) {
   return {
     is_moving: motor.isMoving() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
     is_limit_switch_pressed: BoolState::BoolState_NO,    // need to update proto message since step-dir-mode removes limit switch
-    direction: MotorDirection::MotorDirection_OPENING,  // direction field in MotorData protobuf message isn't updated, so this is just set to 0
+    direction: MotorDirection::MotorDirection_MOTOR_DIRECTION_UNDEFINED,  // direction field in MotorData protobuf message isn't updated, so this is just set to 0
     current_step: motor.currentSteps(),
     target_step: motor.targetSteps(),
     current_angle: (float)motor.currentPosition(),
@@ -88,14 +88,14 @@ void handleCommand(const uint8_t* data, int length) {
 void sendData() {
     AntennaFirmwareData data = AntennaFirmwareData_init_zero;
 
-    // data.version = version;
-    // data.has_version = true;
+    data.version = version;
+    data.has_version = true;
 
-    // data.swivel = getMotorData(swivel);
-    // data.has_swivel = true;
+    data.swivel = getMotorData(swivel);
+    data.has_swivel = true;
 
-    // data.pitch = getMotorData(pitch);
-    // data.has_pitch = true;
+    data.pitch = getMotorData(pitch);
+    data.has_pitch = true;
 
     serial.send(&data);
 }
