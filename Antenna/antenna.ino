@@ -1,15 +1,19 @@
 #include "src/utils/BURT_utils.h"
-#include "src/mars.pb.h"
-
-// TODO: Add AntennaCommand, AntennaData, and Device.ANTENNA to burt_network
-// TODO: Add BurtSerial to communicate with the Dashboard
+#include "src/base_station.pb.h"
+#include "pinouts.h"
 
 #define DATA_SEND_INTERVAL 250 // ms
 
-BurtSerial serial(Device::Device_ANTENNA, handleCommand, AntennaData_fields, AntennaData_size);
+Version version = {major: 1, minor: 0};
+
+void handleCommand(const uint8_t* data, int length);
+void sendData();
+
+BurtSerial serial(Device::Device_ANTENNA, handleCommand, AntennaFirmwareData_fields, AntennaFirmwareData_size);
 BurtTimer dataTimer(DATA_SEND_INTERVAL, sendData);
 
 void setup() {
+    delay(1000);
     Serial.begin(9600);
     Serial.println("Initializing MARS subsystem");
     Serial.println("Initializing software...");
@@ -17,22 +21,81 @@ void setup() {
     dataTimer.setup();
 
     Serial.println("Initializing hardware...");
-    /*antenna.setup();*/
+    
+    Serial.println("Preparing motors...");
+    swivel.preSetup();
+    pitch.preSetup();
+    
+    Serial.println("Initializing motors...");
+    swivel.setup();
+    pitch.setup();
 
+    Serial.println("Calibrating all motors...");
+    calibrateAllMotors();
+    
     Serial.println("MARS subsystem initialized");
+
+    // temporary for HREI RevA board: step-dir-mode branch expects DRV_EN to be connected directly to ground, but the board connects it to a pin, so we drive it low
+    pinMode(35, OUTPUT);
+    pinMode(34,OUTPUT);
+    digitalWrite(35, LOW);
+    digitalWrite(34, LOW);
+
 }
 
 void loop() {
     serial.update();
     dataTimer.update();
-    /*antenna.update();*/
+
+    swivel.update();
+    pitch.update();
+}
+
+void stopAllMotors() {
+    swivel.stop();
+    pitch.stop();
+}
+
+void calibrateAllMotors() {
+    swivel.calibrate();
+    pitch.calibrate();
+}
+
+// fix this for antenna- get the correct protobuf messages (currently matching old protobuf motordata message to make it work for now)
+MotorData getMotorData(StepperMotor& motor) {
+  return {
+    is_moving: motor.isMoving() ? BoolState::BoolState_YES : BoolState::BoolState_NO,
+    is_limit_switch_pressed: BoolState::BoolState_NO,    // need to update proto message since step-dir-mode removes limit switch
+    direction: MotorDirection::MotorDirection_MOTOR_DIRECTION_UNDEFINED,  // direction field in MotorData protobuf message isn't updated, so this is just set to 0
+    current_step: motor.currentSteps(),
+    target_step: motor.targetSteps(),
+    current_angle: (float)motor.currentPosition(),
+    target_angle: (float)motor.targetPosition(),
+  };
 }
 
 void handleCommand(const uint8_t* data, int length) {
-    auto command = BurtProto::decode<AntennaCommand>(data, length, AntennaCommand_fields);
-    /*antenna.handleCommand();*/
+    auto command = BurtProto::decode<AntennaFirmwareCommand>(data, length, AntennaFirmwareCommand_fields);
+
+    if (command.stop) stopAllMotors();
+    if (command.calibrate) calibrateAllMotors();
+
+    if (command.swivel.move_radians != 0) swivel.moveBy(command.swivel.move_radians);
+    if (command.pitch.move_radians != 0) pitch.moveBy(command.pitch.move_radians);
+
 }
 
 void sendData() {
-    serial.send(/*&antenna.data*/)
+    AntennaFirmwareData data = AntennaFirmwareData_init_zero;
+
+    data.version = version;
+    data.has_version = true;
+
+    data.swivel = getMotorData(swivel);
+    data.has_swivel = true;
+
+    data.pitch = getMotorData(pitch);
+    data.has_pitch = true;
+
+    serial.send(&data);
 }
